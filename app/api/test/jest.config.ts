@@ -16,7 +16,7 @@ const config: Config = {
     'test',
     'main.ts',
     '\\.(e2e-)spec\\.ts$',
-    '\\.(module|abstract|interface|type|d|model|dto|entry.*)\\.ts$',
+    '\\.(module|abstract|infra|type|d|model|dto|entry.*)\\.ts$',
   ],
 };
 

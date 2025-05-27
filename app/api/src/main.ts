@@ -1,7 +1,7 @@
-import { RestPresentation } from './infrastructure/presentation/rest/rest.presentation';
+import { RestPresenter } from './interface/presenter/rest/rest.presenter';
 
 async function bootstrap() {
-  const restPresentation = new RestPresentation();
+  const restPresentation = new RestPresenter();
 
   await restPresentation.init();
 }

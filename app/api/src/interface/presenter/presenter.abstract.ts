@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-export abstract class PresentationAbstract {
+export abstract class PresenterAbstract {
   logger: Logger = new Logger(this.constructor.name);
 
   abstract init(): Promise<void>;

@@ -1,11 +1,11 @@
-import { PresentationAbstract } from '../presentation.abstract';
+import { PresenterAbstract } from '../presenter.abstract';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { RawRequestDefaultExpression } from 'fastify';
 import { uuid } from '../../../shared/uid/uid.shared';
 import { NestFactory } from '@nestjs/core';
 import { RestModule } from './rest.module';
 
-export class RestPresentation extends PresentationAbstract {
+export class RestPresenter extends PresenterAbstract {
   httpAdapter() {
     return new FastifyAdapter({
       trustProxy: true,

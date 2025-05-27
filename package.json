@@ -8,6 +8,8 @@
     "test": "pnpm -r test",
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
+    "format": "pnpm -r format",
+    "lint": "pnpm -r lint",
     "clean:deps": "rimraf node_modules **/node_modules pnpm-lock.yaml"
   },
   "devDependencies": {
