@@ -6,10 +6,10 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "node init && nest build",
     "format": "../../node_modules/prettier/bin/prettier.cjs --config ../../.prettierrc.json --write \"**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
-    "dev": "nest start --watch",
+    "dev": "node init && nest start --watch",
     "jest": "TS_NODE_PROJECT=tsconfig.json node -r ts-node/register -r tsconfig-paths/register /node_modules/jest/bin/jest.js",
     "test:unit": "pnpm jest --coverage --config ./test/jest.config.ts",
     "test:e2e": "jest --config ./test/jest-e2e.config.ts",

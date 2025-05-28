@@ -8,7 +8,7 @@ export class GetUsersRestController {
 
   @Get()
   index(@Query('size') size: number, @Query('page') page: number) {
-    if (size === undefined || page === undefined) throw new Error('size and page are required');
+    if (size === undefined || page === undefined) [size, page] = [10, 1];
     if (size < 1 || page < 1) throw new Error('size and page must be greater than 0');
     if (size > 100) throw new Error('size must be less than 100');
     const query = new GetUsersQuery({ size, page });

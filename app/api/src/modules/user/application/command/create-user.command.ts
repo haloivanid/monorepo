@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UserEntity } from '../../domain/user.entity';
+import { UserDomainEntity } from '../../domain/user.entity';
 import { UserCacheAdapter } from '../../infrastructure/adapter/user.cache.adapter';
 import {
   BaseCqrsCommand,
@@ -30,7 +30,7 @@ export class CreateUserCommandHandler extends BaseCqrsCommandHandler implements 
   async execute(command: CreateUserCommand): Promise<void> {
     this.logger.log(`received command: ${command.constructor.name} - ${JSON.stringify(command)}`);
 
-    const user = UserEntity.create({ name: command.name, email: command.email, password: command.password });
+    const user = UserDomainEntity.create({ name: command.name, email: command.email, password: command.password });
 
     await this.repository.transaction(() => this.repository.insert(user));
 

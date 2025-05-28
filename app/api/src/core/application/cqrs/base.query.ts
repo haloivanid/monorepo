@@ -1,4 +1,4 @@
-import { BaseProps } from '../../domain/base.props';
+import { BaseEntity, BaseEntityProps, TypeEntityId } from '../../domain/base.type';
 
 export class CqrsQueryPage {
   constructor(
@@ -7,7 +7,7 @@ export class CqrsQueryPage {
   ) {}
 }
 
-export class BaseCqrsQuery<T extends BaseProps> {
+export class BaseCqrsQuery<T extends BaseEntityProps<BaseEntity<TypeEntityId>>> {
   constructor(public readonly props: T) {}
 }
 
