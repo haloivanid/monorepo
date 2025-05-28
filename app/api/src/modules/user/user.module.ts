@@ -10,6 +10,7 @@ import { RouterModule } from '@nestjs/core';
 import { AbstractModule } from '../abstract.module';
 import { GetUserQueryHandler } from './application/query/get-user.query';
 import { GetUserRestController } from './interface/presenter/rest/get-user.rest-controller';
+import { GetUsersQueryHandler } from './application/query/get-users.query';
 
 @Module({ imports: [new UserModule().register()] })
 export class UserModule implements AbstractModule {
@@ -18,7 +19,7 @@ export class UserModule implements AbstractModule {
   imports = [CqrsModule, CachePersistence.register(), RouterModule.register(this.routes)];
 
   commandHandlers = [CreateUserCommandHandler];
-  queryHandlers = [GetUserQueryHandler];
+  queryHandlers = [GetUserQueryHandler, GetUsersQueryHandler];
   controllers = [CreateUserRestController, GetUsersRestController, GetUserRestController];
   eventHandlers = [];
 

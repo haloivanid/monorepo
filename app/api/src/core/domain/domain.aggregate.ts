@@ -2,9 +2,12 @@ import { DomainEntity } from './domain.entity';
 import { RequestContext } from '../application/request-context';
 import { DomainEvent } from './domain.event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { BaseProps } from './base.props';
+import { BaseEntity, BaseEntityProps, TypeEntityId } from './base.type';
 
-export abstract class DomainAggregate<Props extends BaseProps, TypeID> extends DomainEntity<Props, TypeID> {
+export abstract class DomainAggregate<
+  T extends TypeEntityId,
+  B extends BaseEntityProps<BaseEntity<T>>,
+> extends DomainEntity<T, B> {
   private readonly ctx = RequestContext;
   private _domainEvents: DomainEvent[] = [];
 
