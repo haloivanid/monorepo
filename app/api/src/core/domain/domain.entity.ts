@@ -1,31 +1,23 @@
 import { time } from '../../shared/utils/time';
-import { BaseProps } from './base.props';
 import { Logger } from '@nestjs/common';
+import { BaseEntity, BaseEntityProps, TypeEntityId } from './base.type';
+import { DomainUtil } from './domain.util';
 
-// export infra DomainEntityProps {
-//   id: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// }
-
-export type TypeEntityID = string | number;
-
-export interface CreateDomainEntityProps<Props extends BaseProps, ID = TypeEntityID> {
-  id: ID;
-  props: Props;
-  createdAt?: Date;
-  updatedAt?: Date;
+export interface CreateDomainEntityProps<T extends TypeEntityId, B extends BaseEntityProps<BaseEntity<T>>>
+  extends Partial<BaseEntity<T>> {
+  id: T;
+  props: B;
 }
 
-export abstract class DomainEntity<Props extends BaseProps, TypeID = TypeEntityID> {
+export abstract class DomainEntity<T extends TypeEntityId, B extends BaseEntityProps<BaseEntity<T>>> {
   public logger = new Logger(this.constructor.name);
 
-  protected abstract _id: TypeID;
-  protected readonly props: Props;
+  protected abstract _id: T;
+  protected readonly props: B;
   protected readonly _createdAt: Date;
   protected readonly _updatedAt: Date;
 
-  constructor(createEntityProps: CreateDomainEntityProps<Props, TypeID>) {
+  constructor(createEntityProps: CreateDomainEntityProps<T, B>) {
     const now = time().toDate();
 
     this.props = createEntityProps.props;
@@ -37,15 +29,11 @@ export abstract class DomainEntity<Props extends BaseProps, TypeID = TypeEntityI
 
   public abstract validate(): void | Promise<void>;
 
-  static isEntity(entity: unknown): entity is DomainEntity<BaseProps, string | number> {
-    return entity instanceof DomainEntity;
-  }
-
-  get id(): TypeID {
+  get id(): T {
     return this._id;
   }
 
-  private setId(id: TypeID) {
+  private setId(id: T) {
     this._id = id;
   }
 
@@ -57,7 +45,16 @@ export abstract class DomainEntity<Props extends BaseProps, TypeID = TypeEntityI
     return this._updatedAt;
   }
 
-  getPropsValue(): Props {
+  getPropsValue(): B {
     return Object.freeze({ ...this.props });
+  }
+
+  toObject(): Record<keyof B, any> {
+    return Object.freeze({
+      id: this.id,
+      ...DomainUtil.convertPropsToObj<B>(this.props),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    });
   }
 }
